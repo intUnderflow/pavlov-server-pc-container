@@ -34,7 +34,7 @@ jobs:
       run: export PAVLOV_CURRENT_VERSION=`curl -s "https://api.steamcmd.net/v1/info/622970" | jq -r ".data[\"622970\"].depots.branches.public.buildid"` && echo "PAVLOV_CURRENT_VERSION=$PAVLOV_CURRENT_VERSION" >> $GITHUB_ENV
 
     - name: Get container tag
-      run: export CONTAINER_TAG=intunderflow/pavlov-server-pc:${{ env.PAVLOV_CURRENT_VERSION }} && echo "PAVLOV_CONTAINER_TAG=$CONTAINER_TAG" >> $GITHUB_ENV
+      run: export CONTAINER_TAG=$USERNAME/pavlov-server-pc:${{ env.PAVLOV_CURRENT_VERSION }} && echo "PAVLOV_CONTAINER_TAG=$CONTAINER_TAG" >> $GITHUB_ENV
 
     - name: Build container
       run: cd container && docker build --tag=${{ env.PAVLOV_CONTAINER_TAG }} .
