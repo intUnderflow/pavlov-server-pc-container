@@ -4,6 +4,9 @@ FROM cm2network/steamcmd:steam
 
 LABEL maintainer="pavlov-server-pc-container@lucy.sh"
 
+# Install dependencies
+RUN apt update && apt install -y gdb curl lib32gcc1 libc++-dev unzip
+
 # Use steamcmd to download Pavlov Server
 RUN /home/steam/steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/steam/pavlovserver +app_update 622970 +exit
 
