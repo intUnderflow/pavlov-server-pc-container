@@ -1,11 +1,14 @@
 # It's worth noting you'll have to attach a game configuration yourself using container volume mounts or etc
 # I've run this container inside containerd, your mileage with other CRIs may vary
-FROM cm2network/steamcmd:steam
+FROM cm2network/steamcmd:root
 
 LABEL maintainer="pavlov-server-pc-container@lucy.sh"
 
 # Install dependencies
 RUN apt update && apt install -y gdb curl lib32gcc1 libc++-dev unzip
+
+# Switch to steam user
+USER steam
 
 # Use steamcmd to download Pavlov Server
 RUN /home/steam/steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/steam/pavlovserver +app_update 622970 +exit
