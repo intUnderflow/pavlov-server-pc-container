@@ -11,7 +11,6 @@ on:
 
 
 env:
-  REGISTRY: ${{ secrets.REGISTRY }}
   USERNAME: ${{ secrets.USERNAME }}
   PASSWORD: ${{ secrets.PASSWORD }}
 
@@ -28,7 +27,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Login to container registry
-      run: docker login $REGISTRY -u $USERNAME -p $PASSWORD
+      run: docker login -u $USERNAME -p $PASSWORD
 
     - name: Get current pavlov server build ID
       run: export PAVLOV_CURRENT_VERSION=`curl -s "https://api.steamcmd.net/v1/info/622970" | jq -r ".data[\"622970\"].depots.branches.public.buildid"` && echo "PAVLOV_CURRENT_VERSION=$PAVLOV_CURRENT_VERSION" >> $GITHUB_ENV
