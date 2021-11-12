@@ -34,14 +34,8 @@ jobs:
     - name: Get current pavlov server build ID
       run: export PAVLOV_CURRENT_VERSION=`curl -s "https://api.steamcmd.net/v1/info/622970" | jq -r ".data[\"622970\"].depots.branches.public.buildid"` && echo "PAVLOV_CURRENT_VERSION=$PAVLOV_CURRENT_VERSION" >> $GITHUB_ENV
 
-    - name: Get current version container tag
-      run: export CONTAINER_TAG=$USERNAME/pavlov-server-pc:${{ env.PAVLOV_CURRENT_VERSION }} && echo "PAVLOV_CONTAINER_TAG=$CONTAINER_TAG" >> $GITHUB_ENV
-
-    - name: Get latest container tag
-      run: export LATEST_CONTAINER_TAG=$USERNAME/pavlov-server-pc:latest && echo "PAVLOV_LATEST_CONTAINER_TAG=$LATEST_CONTAINER_TAG" >> $GITHUB_ENV
-      
     - name: Build container
-      run: cd container && docker build --tag=${{ env.PAVLOV_CONTAINER_TAG }} --tag=${{ env.PAVLOV_LATEST_CONTAINER_TAG}} .
+      run: cd container && docker build --tag=$USERNAME/pavlov-server-pc:${{ env.PAVLOV_CURRENT_VERSION }} --tag=$USERNAME/pavlov-server-pc:latest .
 
     - name: Push container
-      run: docker push --all-tags ${{env.PAVLOV_CONTAINER_TAG}}
+      run: docker push --all-tags $USERNAME/pavlov-server-pc
