@@ -26,3 +26,6 @@ RUN mkdir -p ~/pavlovserver/Pavlov/Saved/Config/LinuxServer
 
 # Make Pavlov server executable
 RUN chmod +x ~/pavlovserver/PavlovServer.sh
+
+# Run the server as the default command
+CMD ["/home/steam/pavlovserver/PavlovServer.sh"]
